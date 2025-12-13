@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WohnungEasy — Unterstützung beim Mietprozess in der Schweiz</title>
+  <meta name="description" content="WohnungEasy hilft Ausländer:innen in der Schweiz bei Wohnungssuche, Besichtigungen, Dokumenten (inkl. Betreibungsauszug), Verhandlungen und Vertragsabschluss.">
+  <meta name="keywords" content="Wohnung, Miete, Schweiz, Betreibungsauszug, Besichtigung, Hilfe, Ausländer, Wohnungssuche">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <style>
+    :root{
+      --accent:#2b7a78;
+      --accent-2:#17252a;
+      --muted:#6b6b6b;
+      --bg:#f7f7f8;
+      --card:#ffffff;
+      --maxw:1100px;
+      --radius:10px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#111}
+    .site{max-width:var(--maxw);margin:32px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px
+    }
+    nav{display:flex;gap:10px;flex-wrap:wrap}
+    nav a{padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--accent-2);font-weight:600}
+    .hero{margin:24px 0;padding:28px;border-radius:var(--radius);background:linear-gradient(180deg,#fff,#fbfdfe);display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+    .hero .left{flex:1;min-width:260px}
+    .hero h1{margin:0 0 6px 0;font-size:28px;color:var(--accent-2)}
+    .hero p{margin:0 0 12px 0;color:var(--muted)}
+    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;display:inline-block}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:20px 0}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,0.05)}
+    h2{margin:0 0 10px 0;color:var(--accent-2)}
+    small{color:var(--muted)}
+    footer{margin-top:28px;padding:20px;text-align:center;color:var(--muted)}
+    .lang-switch{display:inline-flex;gap:6px;align-items:center}
+    .lang-btn{padding:6px 8px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer}
+    .form-row{display:flex;gap:8px;flex-wrap:wrap}
+    input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
+    label{font-weight:600;font-size:14px;color:var(--accent-2)}
+    .price{font-size:20px;color:var(--accent);font-weight:800}
+    .package-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .badge{display:inline-block;padding:6px 8px;background:#eef7f6;border-radius:8px;color:var(--accent-2);font-weight:700}
+    /* responsive */
+    @media (max-width:640px){
+      header{flex-direction:column;align-items:flex-start}
+      .hero{padding:18px}
+    }
+    /* simple footer links */
+    .inline-list{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .marketing pre{white-space:pre-wrap;background:#fafafa;padding:10px;border-radius:8px;overflow:auto}
+  </style>
+</head>
+<body>
+  <div class="site" id="site">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">W</div>
+        <div>
+          <div style="font-weight:800">WohnungEasy</div>
+          <small id="tagline">Wir finden Ihre perfekte Wohnung in der Schweiz.</small>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <nav aria-label="Hauptnavigation">
+          <a href="#home" data-i18n="nav.home">Home</a>
+          <a href="#services" data-i18n="nav.services">Leistungen</a>
+          <a href="#packages" data-i18n="nav.packages">Pakete</a>
+          <a href="#marketing" data-i18n="nav.marketing">Anzeigen</a>
+          <a href="#contact" data-i18n="nav.contact">Kontakt</a>
+        </nav>
+
+        <div class="lang-switch" aria-label="Sprache">
+          <button class="lang-btn" data-lang="de">DE</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="pt">PT</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="home" class="hero" aria-labelledby="hero-heading">
+        <div class="left">
+          <h1 id="hero-heading" data-i18n="hero.title">Wir finden Ihre perfekte Wohnung – schnell, sicher und stressfrei.</h1>
+          <p data-i18n="hero.subtitle">Professionelle Unterstützung für Ausländer:innen in der Schweiz — von der Suche bis zur Vertragsunterzeichnung.</p>
+
+          <div class="cta-row" style="margin-top:12px">
+            <a href="#contact" class="btn" data-i18n="hero.cta">Jetzt Angebot anfordern</a>
+            <a href="#packages" class="btn" style="background:#eee;color:var(--accent-2);" data-i18n="hero.cta2">Pakete ansehen</a>
+          </div>
+
+          <div style="margin-top:12px">
+            <span class="badge" data-i18n="hero.badge">Deutsch • Português • English • Español • Italiano</span>
+          </div>
+        </div>
+
+        <div style="flex:0 0 320px;min-width:240px">
+          <div class="card">
+            <h3 data-i18n="quick.title">Schnellübersicht</h3>
+            <ul>
+              <li data-i18n="quick.find">Wohnungssuche nach Wunschkriterien</li>
+              <li data-i18n="quick.view">Besichtigungen & Video-Besichtigungen</li>
+              <li data-i18n="quick.docs">Betreibungsauszug & komplette Dokumentenhilfe</li>
+              <li data-i18n="quick.neg">Verhandlung & Vertragsprüfung</li>
+            </ul>
+            <small data-i18n="quick.note">Preise transparent — Pakete unten.</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" style="margin-top:18px">
+        <h2 data-i18n="services.title">Unsere Dienstleistungen</h2>
+        <div class="grid" style="margin-top:12px">
+          <div class="card">
+            <h3 data-i18n="services.search.title">Wohnungssuche</h3>
+            <p data-i18n="services.search.text">Wir suchen Wohnungen nach Budget, Lage, Verkehrsanbindung und persönlichen Anforderungen. Passende Inserate werden geprüft und sortiert.</p>
+          </div>
+          <div class="card">
+            <h3 data-i18n="services.view.title">Besichtigungen</h3>
+            <p data-i18n="services.view.text">Wir vereinbaren Termine, begleiten persönlich oder per Video-Call und kommunizieren mit Vermietern auf Deutsch.</p>
+          </div>
+          <div class="card">
+            <h3 data-i18n="services.docs.title">Dokumente & Betreibungsauszug</h3>
+            <p data-i18n="services.docs.text">Wir füllen Antragsformulare, holen Betreibungsauszug ein, und bereiten Selbstauskünfte und Arbeitsnachweise vor.</p>
+          </div>
+          <div class="card">
+            <h3 data-i18n="services.neg.title">Verhandlung & Vertrag</h3>
+            <p data-i18n="services.neg.text">Wir unterstützen bei Preisverhandlungen, Vertragsklauseln und begleiten Sie bis zur Unterschrift — verständlich in Ihrer Sprache.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Packages -->
+      <section id="packages" style="margin-top:22px">
+        <h2 data-i18n="packages.title">Pakete & Preise</h2>
+        <p data-i18n="packages.intro">Wählen Sie das passende Paket — transparent und auf Ihre Bedürfnisse abgestimmt. Preise in CHF.</p>
+
+        <div class="package-grid" style="margin-top:12px">
+          <!-- BASIC -->
+          <div class="card">
+            <h3 data-i18n="packages.basic.title">Paket BASIC</h3>
+            <p class="price">CHF 149</p>
+            <ul>
+              <li data-i18n="packages.basic.li1">Suchprofil & Filterung passender Inserate</li>
+              <li data-i18n="packages.basic.li2">Übersicht & Vorauswahl (bis 10 Inserate)</li>
+              <li data-i18n="packages.basic.li3">Vorlage für Bewerbungsunterlagen</li>
+            </ul>
+            <small data-i18n="packages.basic.note">Empfohlen für selbstständige Haushaltssuchende.</small>
+          </div>
+
+          <!-- STANDARD -->
+          <div class="card">
+            <h3 data-i18n="packages.standard.title">Paket STANDARD</h3>
+            <p class="price">CHF 349</p>
+            <ul>
+              <li data-i18n="packages.standard.li1">Alles aus BASIC</li>
+              <li data-i18n="packages.standard.li2">Organisation & Begleitung von bis zu 4 Besichtigungen</li>
+              <li data-i18n="packages.standard.li3">Hilfe beim Einholen Betreibungsauszug</li>
+              <li data-i18n="packages.standard.li4">Kommunikation mit Vermieter (DE/EN/PT/ES/IT)</li>
+            </ul>
+            <small data-i18n="packages.standard.note">Guter Mix aus Self-Service und Assistenz.</small>
+          </div>
+
+          <!-- PREMIUM -->
+          <div class="card">
+            <h3 data-i18n="packages.premium.title">Paket PREMIUM</h3>
+            <p class="price">CHF 649</p>
+            <ul>
+              <li data-i18n="packages.premium.li1">Alles aus STANDARD</li>
+              <li data-i18n="packages.premium.li2">Unbegrenzte Begleitung bei Besichtigungen (bis Vertragsabschluss)</li>
+              <li data-i18n="packages.premium.li3">Verhandlungsführung & Vertragsprüfung</li>
+              <li data-i18n="packages.premium.li4">Persönliche Betreuung & Übersetzung bei Unterschrift</li>
+            </ul>
+            <small data-i18n="packages.premium.note">Für Kunden, die komplette Betreuung wünschen.</small>
+          </div>
+
+          <!-- VIP -->
+          <div class="card">
+            <h3 data-i18n="packages.vip.title">Paket VIP</h3>
+            <p class="price">CHF 1199</p>
+            <ul>
+              <li data-i18n="packages.vip.li1">Alles aus PREMIUM</li>
+              <li data-i18n="packages.vip.li2">Express-Suche (Priorität)</li>
+              <li data-i18n="packages.vip.li3">Hilfe bei Umzug & lokale Registrierung</li>
+              <li data-i18n="packages.vip.li4">Telefonische 24/7 Unterstützung während 7 Tagen nach Unterschrift</li>
+            </ul>
+            <small data-i18n="packages.vip.note">Für Familien und berufliche Relocations.</small>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="card">
+          <h4 data-i18n="packages.custom.title">Maßgeschneiderte Pakete</h4>
+          <p data-i18n="packages.custom.text">Benötigen Sie nur einzelne Leistungen (z.B. nur Vertragsoverprüfung)? Kontaktieren Sie uns für ein individuelles Angebot.</p>
+        </div>
+      </section>
+
+      <!-- Testimonials (placeholder) -->
+      <section id="testimonials" style="margin-top:22px">
+        <h2 data-i18n="testimonials.title">Kundenstimmen</h2>
+        <div class="grid" style="margin-top:12px">
+          <div class="card">
+            <strong>Maria, Portugal</strong>
+            <p class="muted">"Dank WohnungEasy fand ich eine Wohnung in Zürich — schneller als gedacht. Alles auf Portugiesisch erklärt." — <small>5★</small></p>
+          </div>
+          <div class="card">
+            <strong>John, UK</strong>
+            <p class="muted">"Professional and efficient. They handled the Betreibungsauszug and contract." — <small>5★</small></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marketing / Ad campaigns -->
+      <section id="marketing" style="margin-top:22px">
+        <h2 data-i18n="marketing.title">Kampagnen & Werbetexte</h2>
+        <p data-i18n="marketing.intro">Fertige Anzeigen­texte, Zielgruppen und Budgetvorschläge für Facebook/Instagram & Google Ads in allen fünf Sprachen.</p>
+
+        <div class="grid" style="margin-top:12px">
+          <div class="card marketing">
+            <h3>Facebook / Instagram — Kampagne 1</h3>
+            <strong data-i18n="marketing.campaign1.headline">Ihre Wohnung in der Schweiz — ohne Deutsch?</strong>
+            <pre data-i18n="marketing.campaign1.copy">
+DE:
+Headline: "Ihre Wohnung in der Schweiz – ohne Deutsch?"
+Text: "Wir suchen, vereinbaren Besichtigungen, holen Betreibungsauszug ein und begleiten Sie bis zur Unterschrift. Beratung in PT/EN/ES/IT."
+CTA: "Jetzt Angebot anfordern"
+Zielgruppe: Neu zugezogene, Expats, Portugiesisch/Spanisch/Englisch sprechende in CH, 20-55 J.
+Budget-Empfehlung (Testphase): CHF 20–40 / Tag
+            </pre>
+
+            <details>
+              <summary data-i18n="marketing.example">Kopien in weiteren Sprachen</summary>
+              <pre>
+EN:
+Headline: "Find your home in Switzerland — no German required!"
+Text: "We search, arrange viewings, get debt records and accompany you to contract signing. Support in PT/ES/IT/DE."
+CTA: "Request a quote"
+
+PT:
+Headline: "Encontre seu apartamento na Suíça — sem falar alemão!"
+Text: "Procuramos, marcamos visitas, solicitamos Betreibungsauszug e acompanhamos até a assinatura."
+CTA: "Peça um orçamento"
+
+ES:
+Headline: "Encuentra tu piso en Suiza — ¡sin alemán!"
+Text: "Buscamos, concertamos visitas, gestionamos documentos y te acompañamos hasta el contrato."
+
+IT:
+Headline: "Trova casa in Svizzera — anche senza tedesco!"
+Text: "Cerchiamo, organizziamo visite, richiediamo documenti e ti accompagniamo alla firma."
+              </pre>
+            </details>
+          </div>
+
+          <div class="card marketing">
+            <h3>Google Search — Kampagne</h3>
+            <pre data-i18n="marketing.google">
+DE Keywords:
+- Wohnung mieten Schweiz ohne Deutsch
+- Hilfe Betreibungsauszug Zürich
+- Wohnungssuche Expats Schweiz
+
+Anzeigen-Titel Ideen:
+- "Wohnungssuche für Ausländer in CH"
+- "Betreibungsauszug & Vertragsservice"
+
+Budget-Empfehlung: CHF 25–60/Tag (je nach Region)
+Geotargeting: Zürich, Genf, Basel, Bern, Lausanne
+            </pre>
+          </div>
+
+          <div class="card marketing">
+            <h3>Landing Page & CTA</h3>
+            <p data-i18n="marketing.landing">Nutzen Sie diese Seite als Ziel-URL in Anzeigen; CTA: "Jetzt Angebot anfordern" → öffnet Kontaktformular.</p>
+            <p><strong data-i18n="marketing.advice">Tipp:</strong> Verwenden Sie Leads-Formulare auf Facebook, um Direktkontakte zu sammeln; nutzen Sie WhatsApp-Links für schnelle Kommunikation.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" style="margin-top:22px">
+        <h2 data-i18n="contact.title">Kontakt & Angebot anfordern</h2>
+        <p data-i18n="contact.intro">Füllen Sie das Formular aus — wir senden Ihnen ein unverbindliches Angebot in Ihrer Sprache.</p>
+
+        <div class="card" style="margin-top:12px">
+          <!-- Form: mailto fallback -->
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div style="flex:1">
+                <label for="name" data-i18n="form.name">Name</label>
+                <input id="name" name="name" required />
+              </div>
+              <div style="flex:1">
+                <label for="email" data-i18n="form.email">E-Mail</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+            </div>
+
+            <div class="form-row" style="margin-top:8px">
+              <div style="flex:1">
+                <label for="whatsapp" data-i18n="form.whatsapp">WhatsApp / Telefon</label>
+                <input id="whatsapp" name="whatsapp" placeholder="+41 ..." />
+              </div>
+              <div style="flex:1">
+                <label for="city" data-i18n="form.city">Stadt / Region</label>
+                <input id="city" name="city" />
+              </div>
+            </div>
+
+            <div style="margin-top:8px">
+              <label for="budget" data-i18n="form.budget">Monatliches Budget (CHF)</label>
+              <input id="budget" name="budget" type="number" min="0" />
+            </div>
+
+            <div style="margin-top:8px">
+              <label for="type" data-i18n="form.type">Art des Objekts</label>
+              <select id="type" name="type">
+                <option value="apartment" data-i18n="form.type.option1">Wohnung</option>
+                <option value="studio" data-i18n="form.type.option2">Studio</option>
+                <option value="house" data-i18n="form.type.option3">Haus</option>
+              </select>
+            </div>
+
+            <div style="margin-top:8px">
+              <label for="message" data-i18n="form.message">Weitere Informationen / Wunschliste</label>
+              <textarea id="message" name="message" rows="4"></textarea>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <button type="submit" class="btn" data-i18n="form.submit">Angebot anfordern</button>
+              <a href="mailto:info@wohnung-easy.ch" class="btn" style="background:#eee;color:var(--accent-2;" data-i18n="form.emailbtn">Per E-Mail: info@wohnung-easy.ch</a>
+              <small style="color:var(--muted)"><span data-i18n="form.notice">Antwort innerhalb 24–48 Stunden.</span></small>
+            </div>
+          </form>
+        </div>
+
+        <div style="margin-top:12px" class="card">
+          <h4 data-i18n="contact.how">Wie wir arbeiten</h4>
+          <ol>
+            <li data-i18n="contact.step1">Briefing & Suchprofil</li>
+            <li data-i18n="contact.step2">Suche & Vorauswahl</li>
+            <li data-i18n="contact.step3">Besichtigungen & Dokumente</li>
+            <li data-i18n="contact.step4">Verhandlung & Unterschrift</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="inline-list" style="margin-bottom:8px">
+        <a href="#home" data-i18n="footer.privacy">Datenschutz</a>
+        <a href="#home" data-i18n="footer.terms">AGB</a>
+        <a href="#home" data-i18n="footer.faq">FAQ</a>
+      </div>
+      <small>© <span id="year"></span> WohnungEasy — Alle Rechte vorbehalten.</small>
+    </footer>
+  </div>
+
+  <script>
+    // --- Translations ---
+    const translations = {
+      de: {
+        "nav.home":"Home",
+        "nav.services":"Leistungen",
+        "nav.packages":"Pakete",
+        "nav.marketing":"Anzeigen",
+        "nav.contact":"Kontakt",
+
+        "hero.title":"Wir finden Ihre perfekte Wohnung – schnell, sicher und stressfrei.",
+        "hero.subtitle":"Professionelle Unterstützung für Ausländer:innen in der Schweiz — von der Suche bis zur Vertragsunterzeichnung.",
+        "hero.cta":"Jetzt Angebot anfordern",
+        "hero.cta2":"Pakete ansehen",
+        "hero.badge":"Deutsch • Português • English • Español • Italiano",
+
+        "quick.title":"Schnellübersicht",
+        "quick.find":"Wohnungssuche nach Wunschkriterien",
+        "quick.view":"Besichtigungen & Video-Besichtigungen",
+        "quick.docs":"Betreibungsauszug & komplette Dokumentenhilfe",
+        "quick.neg":"Verhandlung & Vertragsabschluss",
+        "quick.note":"Preise transparent — Pakete unten.",
+
+        "services.title":"Unsere Dienstleistungen",
+        "services.search.title":"Wohnungssuche",
+        "services.search.text":"Wir suchen Wohnungen nach Budget, Lage, Verkehrsanbindung und persönlichen Anforderungen. Passende Inserate werden geprüft und sortiert.",
+        "services.view.title":"Besichtigungen",
+        "services.view.text":"Wir vereinbaren Termine, begleiten persönlich oder per Video-Call und kommunizieren mit Vermietern auf Deutsch.",
+        "services.docs.title":"Dokumente & Betreibungsauszug",
+        "services.docs.text":"Wir füllen Antragsformulare, holen Betreibungsauszug ein, und bereiten Selbstauskünfte und Arbeitsnachweise vor.",
+        "services.neg.title":"Verhandlung & Vertrag",
+        "services.neg.text":"Wir unterstützen bei Preisverhandlungen, Vertragsklauseln und begleiten Sie bis zur Unterschrift — verständlich in Ihrer Sprache.",
+
+        "packages.title":"Pakete & Preise",
+        "packages.intro":"Wählen Sie das passende Paket — transparent und auf Ihre Bedürfnisse abgestimmt. Preise in CHF.",
+        "packages.basic.title":"Paket BASIC",
+        "packages.basic.li1":"Suchprofil & Filterung passender Inserate",
+        "packages.basic.li2":"Übersicht & Vorauswahl (bis 10 Inserate)",
+        "packages.basic.li3":"Vorlage für Bewerbungsunterlagen",
+        "packages.basic.note":"Empfohlen für selbstständige Haushaltssuchende.",
+        "packages.standard.title":"Paket STANDARD",
+        "packages.standard.li1":"Alles aus BASIC",
+        "packages.standard.li2":"Organisation & Begleitung von bis zu 4 Besichtigungen",
+        "packages.standard.li3":"Hilfe beim Einholen Betreibungsauszug",
+        "packages.standard.li4":"Kommunikation mit Vermieter (DE/EN/PT/ES/IT)",
+        "packages.standard.note":"Guter Mix aus Self-Service und Assistenz.",
+        "packages.premium.title":"Paket PREMIUM",
+        "packages.premium.li1":"Alles aus STANDARD",
+        "packages.premium.li2":"Unbegrenzte Begleitung bei Besichtigungen (bis Vertragsabschluss)",
+        "packages.premium.li3":"Verhandlungsführung & Vertragsprüfung",
+        "packages.premium.li4":"Persönliche Betreuung & Übersetzung bei Unterschrift",
+        "packages.premium.note":"Für Kunden, die komplette Betreuung wünschen.",
+        "packages.vip.title":"Paket VIP",
+        "packages.vip.li1":"Alles aus PREMIUM",
+        "packages.vip.li2":"Express-Suche (Priorität)",
+        "packages.vip.li3":"Hilfe bei Umzug & lokale Registrierung",
+        "packages.vip.li4":"Telefonische 24/7 Unterstützung während 7 Tagen nach Unterschrift",
+        "packages.vip.note":"Für Familien und berufliche Relocations.",
+        "packages.custom.title":"Maßgeschneiderte Pakete",
+        "packages.custom.text":"Benötigen Sie nur einzelne Leistungen (z.B. nur Vertragsoverprüfung)? Kontaktieren Sie uns für ein individuelles Angebot.",
+
+        "testimonials.title":"Kundenstimmen",
+
+        "marketing.title":"Kampagnen & Werbetexte",
+        "marketing.intro":"Fertige Anzeigen­texte, Zielgruppen und Budgetvorschläge für Facebook/Instagram & Google Ads in allen fünf Sprachen.",
+        "marketing.campaign1.headline":"Ihre Wohnung in der Schweiz — ohne Deutsch?",
+        "marketing.campaign1.copy":"",
+        "marketing.example":"Kopien in weiteren Sprachen",
+        "marketing.google":"",
+        "marketing.landing":"Nutzen Sie diese Seite als Ziel-URL in Anzeigen; CTA: \"Jetzt Angebot anfordern\" → öffnet Kontaktformular.",
+        "marketing.advice":"Tipp:",
+
+        "contact.title":"Kontakt & Angebot anfordern",
+        "contact.intro":"Füllen Sie das Formular aus — wir senden Ihnen ein unverbindliches Angebot in Ihrer Sprache.",
+        "form.name":"Name",
+        "form.email":"E-Mail",
+        "form.whatsapp":"WhatsApp / Telefon",
+        "form.city":"Stadt / Region",
+        "form.budget":"Monatliches Budget (CHF)",
+        "form.type":"Art des Objekts",
+        "form.type.option1":"Wohnung",
+        "form.type.option2":"Studio",
+        "form.type.option3":"Haus",
+        "form.message":"Weitere Informationen / Wunschliste",
+        "form.submit":"Angebot anfordern",
+        "form.emailbtn":"Per E-Mail: info@wohnung-easy.ch",
+        "form.notice":"Antwort innerhalb 24–48 Stunden.",
+
+        "contact.how":"Wie wir arbeiten",
+        "contact.step1":"Briefing & Suchprofil",
+        "contact.step2":"Suche & Vorauswahl",
+        "contact.step3":"Besichtigungen & Dokumente",
+        "contact.step4":"Verhandlung & Unterschrift",
+
+        "footer.privacy":"Datenschutz",
+        "footer.terms":"AGB",
+        "footer.faq":"FAQ"
+      },
+
+      en: {
+        "nav.home":"Home",
+        "nav.services":"Services",
+        "nav.packages":"Packages",
+        "nav.marketing":"Ads",
+        "nav.contact":"Contact",
+
+        "hero.title":"We find your perfect apartment — fast, secure and stress-free.",
+        "hero.subtitle":"Professional support for foreigners in Switzerland — from search to contract signing.",
+        "hero.cta":"Request a quote",
+        "hero.cta2":"View packages",
+        "hero.badge":"Deutsch • Português • English • Español • Italiano",
+
+        "quick.title":"Quick overview",
+        "quick.find":"Apartment search by criteria",
+        "quick.view":"Viewings & video viewings",
+        "quick.docs":"Debt record (Betreibungsauszug) & documents help",
+        "quick.neg":"Negotiation & contract completion",
+        "quick.note":"Transparent prices — packages below.",
+
+        "services.title":"Our services",
+        "services.search.title":"Apartment Search",
+        "services.search.text":"We search apartments by budget, location, commute and personal needs. Matching ads are filtered and sorted.",
+        "services.view.title":"Viewings",
+        "services.view.text":"We arrange appointments, accompany you in person or via video call and communicate with landlords in German.",
+        "services.docs.title":"Documents & Debt Record",
+        "services.docs.text":"We fill application forms, obtain debt records, and prepare self-disclosures and employment proofs.",
+        "services.neg.title":"Negotiation & Contract",
+        "services.neg.text":"We help with price negotiations, contract clauses and accompany you to signing — in your language.",
+
+        "packages.title":"Packages & Pricing",
+        "packages.intro":"Choose the package that fits your needs. Prices in CHF.",
+        "packages.basic.title":"BASIC Package",
+        "packages.basic.li1":"Profile setup & filtering of listings",
+        "packages.basic.li2":"Overview & shortlist (up to 10 listings)",
+        "packages.basic.li3":"Application document templates",
+        "packages.basic.note":"Recommended for independent house-hunters.",
+        "packages.standard.title":"STANDARD Package",
+        "packages.standard.li1":"Everything from BASIC",
+        "packages.standard.li2":"Organisation & accompaniment for up to 4 viewings",
+        "packages.standard.li3":"Support obtaining Betreibungsauszug",
+        "packages.standard.li4":"Communication with landlord (DE/EN/PT/ES/IT)",
+        "packages.standard.note":"Good balance of self-service and support.",
+        "packages.premium.title":"PREMIUM Package",
+        "packages.premium.li1":"Everything from STANDARD",
+        "packages.premium.li2":"Unlimited accompaniment to viewings until contract signing",
+        "packages.premium.li3":"Negotiation & contract review",
+        "packages.premium.li4":"Personal assistance & translation on signing",
+        "packages.premium.note":"For clients who want full support.",
+        "packages.vip.title":"VIP Package",
+        "packages.vip.li1":"Everything from PREMIUM",
+        "packages.vip.li2":"Express search (priority)",
+        "packages.vip.li3":"Help with move & local registration",
+        "packages.vip.li4":"Phone 24/7 support for 7 days after signing",
+        "packages.vip.note":"For families and professional relocations.",
+        "packages.custom.title":"Custom Packages",
+        "packages.custom.text":"Need only specific services (e.g. contract review)? Contact us for a custom quote.",
+
+        "testimonials.title":"Testimonials",
+
+        "marketing.title":"Campaigns & Ad copies",
+        "marketing.intro":"Ready ad copies, audiences and budgets for Facebook/Instagram & Google Ads in five languages.",
+        "marketing.campaign1.headline":"Find your home in Switzerland — no German?",
+        "marketing.example":"Copies in other languages",
+        "marketing.google":"",
+        "marketing.landing":"Use this page as landing URL; CTA: \"Request a quote\" → opens contact form.",
+        "marketing.advice":"Tip:",
+
+        "contact.title":"Contact & Request a quote",
+        "contact.intro":"Fill the form — we will send a non-binding quote in your language.",
+        "form.name":"Name",
+        "form.email":"E-mail",
+        "form.whatsapp":"WhatsApp / Phone",
+        "form.city":"City / Region",
+        "form.budget":"Monthly budget (CHF)",
+        "form.type":"Property type",
+        "form.type.option1":"Apartment",
+        "form.type.option2":"Studio",
+        "form.type.option3":"House",
+        "form.message":"More information / wishlist",
+        "form.submit":"Request a quote",
+        "form.emailbtn":"By e-mail: info@wohnung-easy.ch",
+        "form.notice":"Reply within 24–48 hours.",
+
+        "contact.how":"How we work",
+        "contact.step1":"Briefing & profile",
+        "contact.step2":"Search & shortlist",
+        "contact.step3":"Viewings & documents",
+        "contact.step4":"Negotiation & signing",
+
+        "footer.privacy":"Privacy",
+        "footer.terms":"Terms",
+        "footer.faq":"FAQ"
+      },
+
+      pt: {
+        "nav.home":"Início",
+        "nav.services":"Serviços",
+        "nav.packages":"Pacotes",
+        "nav.marketing":"Anúncios",
+        "nav.contact":"Contacto",
+
+        "hero.title":"Encontramos seu apartamento perfeito — rápido, seguro e sem stress.",
+        "hero.subtitle":"Apoio profissional para estrangeiros na Suíça — da busca à assinatura do contrato.",
+        "hero.cta":"Peça um orçamento",
+        "hero.cta2":"Ver pacotes",
+        "hero.badge":"Deutsch • Português • English • Español • Italiano",
+
+        "quick.title":"Resumo rápido",
+        "quick.find":"Busca de apartamentos conforme critérios",
+        "quick.view":"Visitas & video-visitas",
+        "quick.docs":"Betreibungsauszug & ajuda com documentos",
+        "quick.neg":"Negociação & assinatura do contrato",
+        "quick.note":"Preços transparentes — pacotes abaixo.",
+
+        "services.title":"Nossos serviços",
+        "services.search.title":"Busca de apartamentos",
+        "services.search.text":"Procuramos apartamentos por orçamento, localização, deslocamento e necessidades pessoais. Anúncios correspondentes são filtrados e ordenados.",
+        "services.view.title":"Visitas",
+        "services.view.text":"Marcamos visitas, acompanhamos pessoalmente ou por videochamada e comunicamos com proprietários em alemão.",
+        "services.docs.title":"Documentos & Betreibungsauszug",
+        "services.docs.text":"Preenchemos formulários, solicitamos Betreibungsauszug e preparamos auto-declarações e comprovantes de trabalho.",
+        "services.neg.title":"Negociação & Contrato",
+        "services.neg.text":"Ajudamos em negociações de preço, cláusulas contratuais e acompanhamos até a assinatura — na sua língua.",
+
+        "packages.title":"Pacotes & Preços",
+        "packages.intro":"Escolha o pacote que atende às suas necessidades. Preços em CHF.",
+        "packages.basic.title":"Pacote BASIC",
+        "packages.basic.li1":"Criação do perfil & filtragem de anúncios",
+        "packages.basic.li2":"Visão geral & shortlist (até 10 anúncios)",
+        "packages.basic.li3":"Templates para candidatura",
+        "packages.basic.note":"Recomendado para quem procura de forma independente.",
+        "packages.standard.title":"Pacote STANDARD",
+        "packages.standard.li1":"Tudo do BASIC",
+        "packages.standard.li2":"Organização & acompanhamento até 4 visitas",
+        "packages.standard.li3":"Ajuda para obter Betreibungsauszug",
+        "packages.standard.li4":"Comunicação com o proprietário (DE/EN/PT/ES/IT)",
+        "packages.standard.note":"Bom equilíbrio entre auto-serviço e apoio.",
+        "packages.premium.title":"Pacote PREMIUM",
+        "packages.premium.li1":"Tudo do STANDARD",
+        "packages.premium.li2":"Acompanhamento ilimitado até a assinatura",
+        "packages.premium.li3":"Negociação & revisão de contrato",
+        "packages.premium.li4":"Assistência pessoal e tradução na assinatura",
+        "packages.premium.note":"Para quem quer assistência completa.",
+        "packages.vip.title":"Pacote VIP",
+        "packages.vip.li1":"Tudo do PREMIUM",
+        "packages.vip.li2":"Busca expressa (prioridade)",
+        "packages.vip.li3":"Ajuda com mudança & registro local",
+        "packages.vip.li4":"Suporte telefónico 24/7 por 7 dias após assinatura",
+        "packages.vip.note":"Para famílias e relocations profissionais.",
+        "packages.custom.title":"Pacotes Personalizados",
+        "packages.custom.text":"Precisa somente de um serviço (ex: revisão de contrato)? Contacte-nos para orçamento personalizado.",
+
+        "testimonials.title":"Testemunhos",
+
+        "marketing.title":"Campanhas & textos",
+        "marketing.intro":"Textos prontos, públicos e orçamentos para Facebook/Instagram & Google Ads em cinco línguas.",
+        "marketing.campaign1.headline":"Encontre seu apartamento na Suíça — sem alemão?",
+        "marketing.example":"Cópias em outras línguas",
+        "marketing.google":"",
+        "marketing.landing":"Use esta página como destino; CTA: \"Peça um orçamento\" → abre formulário de contacto.",
+        "marketing.advice":"Dica:",
+
+        "contact.title":"Contacto & Pedido de orçamento",
+        "contact.intro":"Preencha o formulário — enviamos um orçamento sem compromisso na sua língua.",
+        "form.name":"Nome",
+        "form.email":"E-mail",
+        "form.whatsapp":"WhatsApp / Telefone",
+        "form.city":"Cidade / Região",
+        "form.budget":"Orçamento mensal (CHF)",
+        "form.type":"Tipo de imóvel",
+        "form.type.option1":"Apartamento",
+        "form.type.option2":"Estúdio",
+        "form.type.option3":"Casa",
+        "form.message":"Mais informações / desejos",
+        "form.submit":"Pedir orçamento",
+        "form.emailbtn":"Por e-mail: info@wohnung-easy.ch",
+        "form.notice":"Resposta em 24–48 horas.",
+
+        "contact.how":"Como trabalhamos",
+        "contact.step1":"Briefing & perfil",
+        "contact.step2":"Busca & shortlist",
+        "contact.step3":"Visitas & documentos",
+        "contact.step4":"Negociação & assinatura",
+
+        "footer.privacy":"Privacidade",
+        "footer.terms":"Termos",
+        "footer.faq":"FAQ"
+      },
+
+      es: {
+        "nav.home":"Inicio",
+        "nav.services":"Servicios",
+        "nav.packages":"Paquetes",
+        "nav.marketing":"Anuncios",
+        "nav.contact":"Contacto",
+
+        "hero.title":"Encontramos tu piso perfecto — rápido, seguro y sin estrés.",
+        "hero.subtitle":"Soporte profesional para extranjeros en Suiza — desde la búsqueda hasta la firma del contrato.",
+        "hero.cta":"Solicitar presupuesto",
+        "hero.cta2":"Ver paquetes",
+        "hero.badge":"Deutsch • Português • English • Español • Italiano",
+
+        "quick.title":"Resumen rápido",
+        "quick.find":"Búsqueda de piso por criterios",
+        "quick.view":"Visitas & video-visitas",
+        "quick.docs":"Betreibungsauszug & ayuda con documentos",
+        "quick.neg":"Negociación & firma del contrato",
+        "quick.note":"Precios transparentes — paquetes abajo.",
+
+        "services.title":"Nuestros servicios",
+        "services.search.title":"Búsqueda de piso",
+        "services.search.text":"Buscamos pisos por presupuesto, ubicación, trayecto y necesidades personales. Los anuncios adecuados se filtran y ordenan.",
+        "services.view.title":"Visitas",
+        "services.view.text":"Organizamos visitas, acompañamos en persona o por videollamada y comunicamos con propietarios en alemán.",
+        "services.docs.title":"Documentos & Betreibungsauszug",
+        "services.docs.text":"Rellenamos formularios, solicitamos Betreibungsauszug y preparamos declaraciones y comprobantes de trabajo.",
+        "services.neg.title":"Negociación & Contrato",
+        "services.neg.text":"Ayudamos con negociaciones de precio, cláusulas del contrato y acompañamos hasta la firma — en su idioma.",
+
+        "packages.title":"Paquetes & Precios",
+        "packages.intro":"Elija el paquete que se ajuste a sus necesidades. Precios en CHF.",
+        "packages.basic.title":"Paquete BASIC",
+        "packages.basic.li1":"Perfil de búsqueda & filtrado de anuncios",
+        "packages.basic.li2":"Resumen & preselección (hasta 10 anuncios)",
+        "packages.basic.li3":"Plantillas para solicitudes",
+        "packages.basic.note":"Recomendado para buscadores independientes.",
+        "packages.standard.title":"Paquete STANDARD",
+        "packages.standard.li1":"Todo de BASIC",
+        "packages.standard.li2":"Organización & acompañamiento en hasta 4 visitas",
+        "packages.standard.li3":"Ayuda para obtener Betreibungsauszug",
+        "packages.standard.li4":"Comunicación con propietario (DE/EN/PT/ES/IT)",
+        "packages.standard.note":"Buen equilibrio entre autoservicio y asistencia.",
+        "packages.premium.title":"Paquete PREMIUM",
+        "packages.premium.li1":"Todo de STANDARD",
+        "packages.premium.li2":"Acompañamiento ilimitado hasta la firma",
+        "packages.premium.li3":"Negociación & revisión de contrato",
+        "packages.premium.li4":"Asistencia personal & traducción en la firma",
+        "packages.premium.note":"Para clientes que desean atención completa.",
+        "packages.vip.title":"Paquete VIP",
+        "packages.vip.li1":"Todo de PREMIUM",
+        "packages.vip.li2":"Búsqueda express (prioridad)",
+        "packages.vip.li3":"Ayuda con mudanza & registro local",
+        "packages.vip.li4":"Soporte telefónico 24/7 durante 7 días tras la firma",
+        "packages.vip.note":"Para familias y relocations profesionales.",
+        "packages.custom.title":"Paquetes personalizados",
+        "packages.custom.text":"¿Necesita solo servicios puntuales (p.ej. revisión de contrato)? Contáctenos para presupuesto a medida.",
+
+        "testimonials.title":"Testimonios",
+
+        "marketing.title":"Campañas & textos",
+        "marketing.intro":"Copias listas, públicos y presupuestos para Facebook/Instagram & Google Ads en cinco idiomas.",
+        "marketing.campaign1.headline":"Encuentra tu piso en Suiza — ¿sin alemán?",
+        "marketing.example":"Copias en otros idiomas",
+        "marketing.google":"",
+        "marketing.landing":"Use esta página como destino; CTA: \"Solicitar presupuesto\" → abre el formulario de contacto.",
+        "marketing.advice":"Consejo:",
+
+        "contact.title":"Contacto & Solicitar presupuesto",
+        "contact.intro":"Rellene el formulario — le enviaremos un presupuesto sin compromiso en su idioma.",
+        "form.name":"Nombre",
+        "form.email":"Correo",
+        "form.whatsapp":"WhatsApp / Teléfono",
+        "form.city":"Ciudad / Región",
+        "form.budget":"Presupuesto mensual (CHF)",
+        "form.type":"Tipo de inmueble",
+        "form.type.option1":"Apartamento",
+        "form.type.option2":"Estudio",
+        "form.type.option3":"Casa",
+        "form.message":"Más información / lista de deseos",
+        "form.submit":"Solicitar presupuesto",
+        "form.emailbtn":"Por correo: info@wohnung-easy.ch",
+        "form.notice":"Respuesta en 24–48 horas.",
+
+        "contact.how":"Cómo trabajamos",
+        "contact.step1":"Briefing & perfil",
+        "contact.step2":"Búsqueda & preselección",
+        "contact.step3":"Visitas & documentos",
+        "contact.step4":"Negociación & firma",
+
+        "footer.privacy":"Privacidad",
+        "footer.terms":"Términos",
+        "footer.faq":"FAQ"
+      },
+
+      it: {
+        "nav.home":"Home",
+        "nav.services":"Servizi",
+        "nav.packages":"Pacchetti",
+        "nav.marketing":"Annunci",
+        "nav.contact":"Contatto",
+
+        "hero.title":"Troviamo il tuo appartamento ideale — veloce, sicuro e senza stress.",
+        "hero.subtitle":"Supporto professionale per stranieri in Svizzera — dalla ricerca alla firma del contratto.",
+        "hero.cta":"Richiedi un preventivo",
+        "hero.cta2":"Vedi pacchetti",
+        "hero.badge":"Deutsch • Português • English • Español • Italiano",
+
+        "quick.title":"Panoramica rapida",
+        "quick.find":"Ricerca appartamenti secondo criteri",
+        "quick.view":"Visite & video-visite",
+        "quick.docs":"Betreibungsauszug & assistenza documenti",
+        "quick.neg":"Negoziazione & firma contratto",
+        "quick.note":"Prezzi trasparenti — pacchetti sotto.",
+
+        "services.title":"I nostri servizi",
+        "services.search.title":"Ricerca appartamenti",
+        "services.search.text":"Cerchiamo appartamenti per budget, posizione, tragitto e necessità personali. Gli annunci idonei vengono filtrati e ordinati.",
+        "services.view.title":"Visite",
+        "services.view.text":"Organizziamo appuntamenti, ti accompagniamo di persona o in videochiamata e comunichiamo con i locatori in tedesco.",
+        "services.docs.title":"Documenti & Betreibungsauszug",
+        "services.docs.text":"Compiliamo moduli di domanda, richiediamo Betreibungsauszug e prepariamo autocertificazioni e prove di impiego.",
+        "services.neg.title":"Negoziazione & Contratto",
+        "services.neg.text":"Supportiamo nelle negoziazioni, clausole contrattuali e ti accompagniamo fino alla firma — nella tua lingua.",
+
+        "packages.title":"Pacchetti & Prezzi",
+        "packages.intro":"Scegli il pacchetto più adatto. Prezzi in CHF.",
+        "packages.basic.title":"Pacchetto BASIC",
+        "packages.basic.li1":"Profilo di ricerca & filtraggio annunci",
+        "packages.basic.li2":"Panoramica & shortlist (fino a 10 annunci)",
+        "packages.basic.li3":"Modelli per candidature",
+        "packages.basic.note":"Consigliato per chi cerca in autonomia.",
+        "packages.standard.title":"Pacchetto STANDARD",
+        "packages.standard.li1":"Tutto dal BASIC",
+        "packages.standard.li2":"Organizzazione & accompagnamento per fino a 4 visite",
+        "packages.standard.li3":"Supporto per ottenere Betreibungsauszug",
+        "packages.standard.li4":"Comunicazione con il locatore (DE/EN/PT/ES/IT)",
+        "packages.standard.note":"Buon equilibrio tra self-service e supporto.",
+        "packages.premium.title":"Pacchetto PREMIUM",
+        "packages.premium.li1":"Tutto dal STANDARD",
+        "packages.premium.li2":"Accompagnamento illimitato fino alla firma",
+        "packages.premium.li3":"Negoziazione & verifica contratto",
+        "packages.premium.li4":"Assistenza personale & traduzione alla firma",
+        "packages.premium.note":"Per clienti che desiderano assistenza completa.",
+        "packages.vip.title":"Pacchetto VIP",
+        "packages.vip.li1":"Tutto dal PREMIUM",
+        "packages.vip.li2":"Ricerca express (priorità)",
+        "packages.vip.li3":"Aiuto con trasloco & registrazione locale",
+        "packages.vip.li4":"Supporto telefonico 24/7 per 7 giorni dopo la firma",
+        "packages.vip.note":"Per famiglie e relocation professionali.",
+        "packages.custom.title":"Pacchetti su misura",
+        "packages.custom.text":"Hai bisogno solo di servizi specifici (es. verifica contratto)? Contattaci per un preventivo su misura.",
+
+        "testimonials.title":"Testimonianze",
+
+        "marketing.title":"Campagne & testi",
+        "marketing.intro":"Copy pronti, pubblici target e suggerimenti budget per Facebook/Instagram & Google Ads in cinque lingue.",
+        "marketing.campaign1.headline":"Trova casa in Svizzera — senza tedesco?",
+        "marketing.example":"Copie in altre lingue",
+        "marketing.google":"",
+        "marketing.landing":"Usa questa pagina come URL di destinazione; CTA: \"Richiedi un preventivo\" → apre il modulo di contatto.",
+        "marketing.advice":"Suggerimento:",
+
+        "contact.title":"Contatto & Richiedi un preventivo",
+        "contact.intro":"Compila il modulo — invieremo un preventivo senza impegno nella tua lingua.",
+        "form.name":"Nome",
+        "form.email":"E-mail",
+        "form.whatsapp":"WhatsApp / Telefono",
+        "form.city":"Città / Regione",
+        "form.budget":"Budget mensile (CHF)",
+        "form.type":"Tipo di immobile",
+        "form.type.option1":"Appartamento",
+        "form.type.option2":"Monolocale",
+        "form.type.option3":"Casa",
+        "form.message":"Ulteriori informazioni / desideri",
+        "form.submit":"Richiedi preventivo",
+        "form.emailbtn":"Per e-mail: info@wohnung-easy.ch",
+        "form.notice":"Risposta entro 24–48 ore.",
+
+        "contact.how":"Come lavoriamo",
+        "contact.step1":"Briefing & profilo",
+        "contact.step2":"Ricerca & shortlist",
+        "contact.step3":"Visite & documenti",
+        "contact.step4":"Negoziazione & firma",
+
+        "footer.privacy":"Privacy",
+        "footer.terms":"Termini",
+        "footer.faq":"FAQ"
+      }
+    };
+
+    // --- Language switch ---
+    const langButtons = document.querySelectorAll(".lang-btn");
+    let currentLang = localStorage.getItem('we_lang') || 'de';
+
+    function setLanguage(lang){
+      currentLang = lang;
+      localStorage.setItem('we_lang', lang);
+      document.documentElement.lang = lang;
+      // replace texts
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const txt = translations[lang] && translations[lang][key] ? translations[lang][key] : translations['de'][key] || '';
+        el.innerText = txt;
+      });
+      // update placeholders & option texts for selects if needed
+      // update year
+      document.getElementById('year').innerText = new Date().getFullYear();
+    }
+
+    langButtons.forEach(btn=>{
+      btn.addEventListener('click',()=> setLanguage(btn.dataset.lang));
+    });
+
+    setLanguage(currentLang);
+
+    // --- Form handling (simple mailto) ---
+    function handleSubmit(e){
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const data = new FormData(form);
+      const name = data.get('name') || '';
+      const email = data.get('email') || '';
+      const whatsapp = data.get('whatsapp') || '';
+      const city = data.get('city') || '';
+      const budget = data.get('budget') || '';
+      const type = data.get('type') || '';
+      const message = data.get('message') || '';
+      const subject = encodeURIComponent("[WohnungEasy] Angebotsanfrage von " + name);
+      const bodyLines = [
+        "Name: " + name,
+        "E-Mail: " + email,
+        "WhatsApp/Telefon: " + whatsapp,
+        "Stadt/Region: " + city,
+        "Budget (CHF): " + budget,
+        "Objektart: " + type,
+        "",
+        "Nachricht:",
+        message
+      ];
+      const body = encodeURIComponent(bodyLines.join("\n"));
+      // mailto link
+      const mailto = `mailto:info@wohnung-easy.ch?subject=${subject}&body=${body}`;
+      // open in new tab
+      window.location.href = mailto;
+      // optionally show message
+      alert(translations[currentLang]['form.notice'] || 'Antwort innerhalb 24–48 Stunden.');
+    }
+
+    // set initial year
+    document.getElementById('year').innerText = new Date().getFullYear();
+  </script>
+</body>
+</html>
